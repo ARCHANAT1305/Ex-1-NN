@@ -39,40 +39,45 @@ STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
 ```
-import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
+import pandas as pd                  
+from sklearn.preprocessing import MinMaxScaler 
 from sklearn.model_selection import train_test_split
 
-df = pd.read_csv("heart.csv")
-print("Initial Dataset:\n", df.head())
+df = pd.read_csv("Churn_Modelling.csv")
+print(df)
 
-print("\nMissing Values:\n", df.isnull().sum())
-df = df.fillna(df.mean())
+x = df.iloc[:, :-1].values
+x
 
-df = pd.get_dummies(df, drop_first=True)
+y = df.iloc[:, -1].values
+y
 
-print("\nAfter Encoding:\n", df.head())
+print(df.isnull().sum())
+df.duplicated()
+df.describe()
 
+df = df.drop(['Surname', 'Geography', 'Gender'], axis=1)
 scaler = MinMaxScaler()
-df_scaled = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
-print("\nNormalized Data:\n", df_scaled.head())
+df1 = pd.DataFrame(scaler.fit_transform(df))
+print(df1)
 
-x = df_scaled.drop('target', axis=1).values
-y = df_scaled['target'].values
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+print(x_train)
+print(len(x_train))
 
-print("\nTraining set size:", len(x_train))
-print("Testing set size:", len(x_test))
+print(x_test)
+print(len(x_test))
 
 ```
 
 
 ## OUTPUT:
-<img width="715" height="243" alt="image" src="https://github.com/user-attachments/assets/89d908b4-a1f0-49f1-be56-8b19a3fe35c4" />
-<img width="160" height="308" alt="image" src="https://github.com/user-attachments/assets/f4ee8163-fe22-4e61-9980-f2ad47f300a3" />
-<img width="648" height="262" alt="image" src="https://github.com/user-attachments/assets/b6e69373-8f5e-4521-b121-2e7e3d4f70e8" />
-<img width="262" height="55" alt="image" src="https://github.com/user-attachments/assets/c0963119-143b-4ae3-908a-11023f90299e" />
+<img width="750" height="224" alt="image" src="https://github.com/user-attachments/assets/b5912446-c6af-4b46-8fad-29b4e37ab9ea" />
+<img width="657" height="227" alt="image" src="https://github.com/user-attachments/assets/7c6ef193-ca80-4e31-b6ec-f97e9b13a0cf" />
+<img width="344" height="516" alt="image" src="https://github.com/user-attachments/assets/1f2438a3-1784-43ab-b6bb-d49f8add7d8a" />
+<img width="644" height="230" alt="image" src="https://github.com/user-attachments/assets/2c80bea3-93b5-438b-a023-0ef6d18297ff" />
+<img width="513" height="321" alt="image" src="https://github.com/user-attachments/assets/fc43db7e-3619-4ed5-abc1-d45a45d39ad9" />
 
 
 
