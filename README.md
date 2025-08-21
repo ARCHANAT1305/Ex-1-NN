@@ -1,9 +1,10 @@
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+
 <H3>EX. NO.1</H3>
-<H3>DATE</H3>
+<H3>DATE : 19/08/25</H3>
 <H1 ALIGN =CENTER> Introduction to Kaggle and Data preprocessing</H1>
 
+### NAME : ARCHANA T
+### REG NO : 212223240013
 ## AIM:
 
 To perform Data preprocessing in a data set downloaded from Kaggle
@@ -37,11 +38,42 @@ STEP 5:Normalizing the data<BR>
 STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
-TYPE YOUR CODE HERE
+```
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
+
+df = pd.read_csv("heart.csv")
+print("Initial Dataset:\n", df.head())
+
+print("\nMissing Values:\n", df.isnull().sum())
+df = df.fillna(df.mean())
+
+df = pd.get_dummies(df, drop_first=True)
+
+print("\nAfter Encoding:\n", df.head())
+
+scaler = MinMaxScaler()
+df_scaled = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+print("\nNormalized Data:\n", df_scaled.head())
+
+x = df_scaled.drop('target', axis=1).values
+y = df_scaled['target'].values
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+print("\nTraining set size:", len(x_train))
+print("Testing set size:", len(x_test))
+
+```
 
 
 ## OUTPUT:
-SHOW YOUR OUTPUT HERE
+<img width="715" height="243" alt="image" src="https://github.com/user-attachments/assets/89d908b4-a1f0-49f1-be56-8b19a3fe35c4" />
+<img width="160" height="308" alt="image" src="https://github.com/user-attachments/assets/f4ee8163-fe22-4e61-9980-f2ad47f300a3" />
+<img width="648" height="262" alt="image" src="https://github.com/user-attachments/assets/b6e69373-8f5e-4521-b121-2e7e3d4f70e8" />
+<img width="262" height="55" alt="image" src="https://github.com/user-attachments/assets/c0963119-143b-4ae3-908a-11023f90299e" />
+
 
 
 ## RESULT:
